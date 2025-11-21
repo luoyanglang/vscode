@@ -43,10 +43,18 @@ jobs:
       - name: Compile
         run: npm run compile
 
+      - name: Download Electron
+        run: npm run electron x64
+
+      - name: Package Windows (Archive)
+        run: npm run gulp vscode-win32-x64-archive
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: vscode-windows
-          path: out/
+          name: vscode-windows-x64
+          path: .build/win32-x64/archive/*.zip
           retention-days: 7
