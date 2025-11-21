@@ -45,9 +45,14 @@ jobs:
 
       - name: Download Electron
         run: npm run electron x64
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Package Windows (Portable)
-        run: npm run gulp vscode-win32-x64-min-ci
+      - name: Compile Extensions
+        run: npm run gulp compile-extensions
+
+      - name: Package (Minify)
+        run: npm run gulp minify-vscode
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -55,6 +60,10 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: vscode-windows-x64
-          path: .build/win32-x64/VSCode-win32-x64/**
+          name: vscode-windows-compiled
+          path: |
+            out-vscode-min/**
+            resources/**
+            extensions/**
+            package.json
           retention-days: 7
