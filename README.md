@@ -1,7 +1,20 @@
 # Visual Studio Code - Open Source ("Code - OSS")
+
+> 🇨🇳 [中文文档](README.zh-CN.md) | 🇺🇸 English
+
 [![Feature Requests](https://img.shields.io/github/issues/microsoft/vscode/feature-request.svg)](https://github.com/microsoft/vscode/issues?q=is%3Aopen+is%3Aissue+label%3Afeature-request+sort%3Areactions-%2B1-desc)
 [![Bugs](https://img.shields.io/github/issues/microsoft/vscode/bug.svg)](https://github.com/microsoft/vscode/issues?utf8=✓&q=is%3Aissue+is%3Aopen+label%3Abug)
 [![Gitter](https://img.shields.io/badge/chat-on%20gitter-yellow.svg)](https://gitter.im/Microsoft/vscode)
+
+## 🎯 Custom Features (本定制版特性)
+
+This is a customized version with the following enhancements:
+
+- ✨ **Chinese by Default** - Built-in Chinese interface
+- 🤖 **AI Code Assistant** - Integrated DeepSeek & OpenAI Codex
+- 📚 **Full Chinese Documentation** - Complete Chinese docs
+
+See [AI助手集成说明.md](AI助手集成说明.md) for details.
 
 ## The Repository
 
