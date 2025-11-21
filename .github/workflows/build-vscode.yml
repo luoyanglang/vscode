@@ -46,8 +46,8 @@ jobs:
       - name: Download Electron
         run: npm run electron x64
 
-      - name: Package Windows (Archive)
-        run: npm run gulp vscode-win32-x64-archive
+      - name: Package Windows (Portable)
+        run: npm run gulp vscode-win32-x64-min-ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -56,5 +56,5 @@ jobs:
         if: success()
         with:
           name: vscode-windows-x64
-          path: .build/win32-x64/archive/*.zip
+          path: .build/win32-x64/VSCode-win32-x64/**
           retention-days: 7
