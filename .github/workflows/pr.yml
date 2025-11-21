@@ -3,8 +3,7 @@ name: Code OSS
 on:
   pull_request:
     branches:
-      - main
-      - 'release/*'
+      - disabled  # 禁用此工作流
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
