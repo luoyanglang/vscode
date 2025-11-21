@@ -3,7 +3,6 @@
 ## 你的 SSH 公钥
 
 ```
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAION9TTf7PrFyorr9bCml5bajWaeQ/79+tGZkzRZq56L5 luoyanglang@github
 ```
 
 ## 添加到 GitHub 的步骤
