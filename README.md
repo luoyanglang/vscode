@@ -10,11 +10,15 @@
 
 This is a customized version with the following enhancements:
 
-- ✨ **Chinese by Default** - Built-in Chinese interface
-- 🤖 **AI Code Assistant** - Integrated DeepSeek & OpenAI Codex
+- 🤖 **Multiple AI Support** - GitHub Copilot + DeepSeek + OpenAI
+- ✨ **10+ AI Features** - Chat, Explain, Generate, Optimize, Fix, etc.
 - 📚 **Full Chinese Documentation** - Complete Chinese docs
+- 🚀 **Ready to Use** - Pre-configured for AI coding
 
-See [AI助手集成说明.md](AI助手集成说明.md) for details.
+### AI Features
+- **GitHub Copilot** - Real-time code completion ([Guide](GitHub_Copilot使用指南.md))
+- **Built-in AI Assistant** - DeepSeek & OpenAI integration ([Guide](AI助手集成说明.md))
+- **10+ Smart Functions** - Explain, Generate, Optimize, Fix, Test, Refactor, etc.
 
 ## The Repository
 

@@ -4,13 +4,20 @@
 
 ## 🌟 支持的 AI 模型
 
-### DeepSeek (推荐)
+### GitHub Copilot (推荐)
+- ✅ **实时代码补全** - 最流畅的编码体验
+- ✅ **Copilot Chat** - 对话式编程
+- ✅ **多语言支持** - 支持几乎所有编程语言
+- 💰 $10/月，学生免费
+- 📚 详见：[GitHub_Copilot使用指南.md](GitHub_Copilot使用指南.md)
+
+### DeepSeek (高性价比)
 - ✅ **deepseek-chat** - 通用对话模型
 - ✅ **deepseek-coder** - 专业代码模型
 - 💰 价格低廉，性价比高
 - 🇨🇳 国产优秀 AI，响应速度快
 
-### OpenAI Codex
+### OpenAI Codex (功能强大)
 - ✅ **GPT-4** - 最强大的模型
 - ✅ **GPT-4 Turbo** - 更快更便宜
 - ✅ **GPT-3.5 Turbo** - 快速且经济
@@ -32,9 +39,41 @@
 9. **🔄 代码重构** - 改善代码结构和设计
 10. **📝 生成文档** - 自动生成 API 文档
 
+## 🎯 AI 选择建议
+
+### 推荐方案
+
+**方案一：GitHub Copilot（最佳体验）**
+- ✅ 实时代码补全，无需手动触发
+- ✅ 体验最流畅
+- ✅ 学生免费
+- 💰 $10/月
+
+**方案二：内置 AI 助手（灵活经济）**
+- ✅ 按需使用，按量付费
+- ✅ 支持多个 AI 提供商
+- ✅ 功能丰富
+- 💰 使用多少付多少
+
+**方案三：组合使用（推荐）**
+- 🚀 Copilot 用于日常编码补全
+- 💡 内置 AI 用于复杂问题和代码审查
+- 🎯 发挥各自优势
+
 ## 📦 快速开始
 
-### 步骤 1: 获取 API Key
+### 选项 A: 使用 GitHub Copilot
+
+1. 安装扩展：`GitHub.copilot` 和 `GitHub.copilot-chat`
+2. 登录 GitHub 账号
+3. 激活订阅（学生免费）
+4. 开始编码！
+
+详细教程：[GitHub_Copilot使用指南.md](GitHub_Copilot使用指南.md)
+
+### 选项 B: 使用内置 AI 助手
+
+#### 步骤 1: 获取 API Key
 
 #### 使用 DeepSeek (推荐)
 1. 访问 https://platform.deepseek.com/
