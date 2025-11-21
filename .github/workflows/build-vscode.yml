@@ -23,6 +23,7 @@ jobs:
   build-windows:
     name: Build Windows
     runs-on: windows-latest
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,82 +42,11 @@ jobs:
 
       - name: Compile
         run: npm run compile
-        continue-on-error: false
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         if: success()
         with:
           name: vscode-windows
-          path: |
-            out/
-          retention-days: 7
-
-  build-linux:
-    name: Build Linux
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libx11-dev libxkbfile-dev libsecret-1-dev
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-        env:
-          ELECTRON_SKIP_BINARY_DOWNLOAD: 0
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Compile
-        run: npm run compile
-        continue-on-error: false
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: vscode-linux
-          path: |
-            out/
-          retention-days: 7
-
-  build-macos:
-    name: Build macOS
-    runs-on: macos-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-
-      - name: Install dependencies
-        run: npm ci --legacy-peer-deps
-        env:
-          ELECTRON_SKIP_BINARY_DOWNLOAD: 0
-          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Compile
-        run: npm run compile
-        continue-on-error: false
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        if: success()
-        with:
-          name: vscode-macos
-          path: |
-            out/
+          path: out/
           retention-days: 7
