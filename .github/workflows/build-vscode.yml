@@ -90,12 +90,18 @@ jobs:
         run: |
           $buildDir = "$env:GITHUB_WORKSPACE\..\VSCode-win32-x64"
           $appxDir = "$buildDir\appx"
-          New-Item -ItemType Directory -Force -Path $appxDir
+          New-Item -ItemType Directory -Force -Path $appxDir | Out-Null
           $product = Get-Content -Raw -Path "product.json" | ConvertFrom-Json
           $quality = if ($product.quality) { $product.quality } else { 'dev' }
           $appxName = if ($quality -eq 'stable') { 'code' } elseif ($quality -eq 'insider') { 'code_insider' } else { 'code' }
-          New-Item -ItemType File -Force -Path "$appxDir\${appxName}_x64.appx"
-          New-Item -ItemType File -Force -Path "$appxDir\resources.pri"
+          $appxFile = "$appxDir\${appxName}_x64.appx"
+          $priFile = "$appxDir\resources.pri"
+          # Create empty files with actual content
+          [System.IO.File]::WriteAllBytes($appxFile, @())
+          [System.IO.File]::WriteAllBytes($priFile, @())
+          Write-Host "Created dummy appx files:"
+          Write-Host "  $appxFile (exists: $(Test-Path $appxFile))"
+          Write-Host "  $priFile (exists: $(Test-Path $priFile))"
 
       - name: Copy Inno updater tools
         run: npm run gulp vscode-win32-x64-inno-updater
