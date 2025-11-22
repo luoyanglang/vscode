@@ -85,16 +85,6 @@ jobs:
         env:
           VSCODE_ARCH: x64
 
-      - name: Patch Inno Setup script to remove appx dependency
-        shell: pwsh
-        run: |
-          $issFile = "build\win32\code.iss"
-          $content = Get-Content -Path $issFile -Raw
-          # Comment out the appx ifdef block in [Files] section
-          $content = $content -replace '(?ms)(#ifdef AppxPackageName.*?#endif\s*#endif)', '; Appx package disabled for CI build'
-          Set-Content -Path $issFile -Value $content
-          Write-Host "Patched code.iss to remove appx dependency"
-
       - name: Copy Inno updater tools
         run: npm run gulp vscode-win32-x64-inno-updater
 
