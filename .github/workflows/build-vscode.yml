@@ -85,17 +85,27 @@ jobs:
         env:
           VSCODE_ARCH: x64
 
-      - name: Copy Inno updater tools
-        run: npm run gulp vscode-win32-x64-inno-updater
+      - name: Create portable package
+        shell: pwsh
+        run: |
+          $buildDir = "$env:GITHUB_WORKSPACE\..\VSCode-win32-x64"
+          $archiveDir = ".build\win32-x64\archive"
+          New-Item -ItemType Directory -Force -Path $archiveDir | Out-Null
 
-      - name: Build user installer (exe)
-        run: npm run gulp vscode-win32-x64-user-setup
+          # Create zip archive
+          $product = Get-Content -Raw -Path "product.json" | ConvertFrom-Json
+          $version = $product.version
+          $zipName = "VSCode-win32-x64-$version.zip"
 
-      - name: Upload installer artifact
+          Write-Host "Creating portable package: $zipName"
+          Compress-Archive -Path "$buildDir\*" -DestinationPath "$archiveDir\$zipName" -Force
+          Write-Host "Package created successfully"
+
+      - name: Upload portable package
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: vscode-windows-installer-exe
+          name: vscode-windows-portable-x64
           path: |
-            .build/win32-x64/user-setup/**
+            .build/win32-x64/archive/**
           retention-days: 7
