@@ -136,7 +136,7 @@ jobs:
           # Create zip archive
           $product = Get-Content -Raw -Path "product.json" | ConvertFrom-Json
           $version = $product.version
-          $zipName = "VSCode-win32-x64-$version.zip"
+          $zipName = "LaoHanCode-win32-x64-$version.zip"
 
           Write-Host "Creating portable package: $zipName"
           Compress-Archive -Path "$buildDir\*" -DestinationPath "$archiveDir\$zipName" -Force
@@ -146,7 +146,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: vscode-windows-portable-x64
+          name: laohan-code-windows-portable-x64
           path: |
             .build/win32-x64/archive/**
           retention-days: 7
