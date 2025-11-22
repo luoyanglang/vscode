@@ -1,0 +1,150 @@
+{
+  "name": "xiaoyu-ai",
+  "displayName": "小玉智能助手",
+  "description": "集成小玉智能系统的 AI 编程助手",
+  "version": "1.0.0",
+  "publisher": "xiaoyu",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Machine Learning"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "xiaoyu.openChat",
+        "title": "打开小玉聊天",
+        "category": "小玉AI",
+        "icon": "$(comment-discussion)"
+      },
+      {
+        "command": "xiaoyu.explainCode",
+        "title": "解释选中的代码",
+        "category": "小玉AI",
+        "icon": "$(question)"
+      },
+      {
+        "command": "xiaoyu.refactorCode",
+        "title": "重构选中的代码",
+        "category": "小玉AI",
+        "icon": "$(symbol-method)"
+      },
+      {
+        "command": "xiaoyu.reviewCode",
+        "title": "审查选中的代码",
+        "category": "小玉AI",
+        "icon": "$(checklist)"
+      },
+      {
+        "command": "xiaoyu.addMemory",
+        "title": "添加到记忆",
+        "category": "小玉AI",
+        "icon": "$(bookmark)"
+      },
+      {
+        "command": "xiaoyu.analyzeProject",
+        "title": "分析整个项目",
+        "category": "小玉AI",
+        "icon": "$(folder-library)"
+      },
+      {
+        "command": "xiaoyu.analyzeFile",
+        "title": "分析当前文件",
+        "category": "小玉AI",
+        "icon": "$(file-code)"
+      },
+      {
+        "command": "xiaoyu.generateDocs",
+        "title": "生成项目文档",
+        "category": "小玉AI",
+        "icon": "$(book)"
+      },
+      {
+        "command": "xiaoyu.provideSolution",
+        "title": "寻求解决方案",
+        "category": "小玉AI",
+        "icon": "$(lightbulb)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "xiaoyu-ai",
+          "title": "小玉AI",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "xiaoyu-ai": [
+        {
+          "type": "webview",
+          "id": "xiaoyu.chatView",
+          "name": "聊天"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "小玉AI",
+      "properties": {
+        "xiaoyu.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "小玉API密钥",
+          "order": 1
+        },
+        "xiaoyu.apiUrl": {
+          "type": "string",
+          "default": "https://xiaoyu.api.ymd.cc",
+          "description": "API服务器地址",
+          "order": 2
+        },
+        "xiaoyu.useMemory": {
+          "type": "boolean",
+          "default": true,
+          "description": "启用记忆功能",
+          "order": 3
+        },
+        "xiaoyu.model": {
+          "type": "string",
+          "default": "deepseek-chat",
+          "description": "使用的模型",
+          "order": 4
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "xiaoyu.explainCode",
+          "when": "editorHasSelection",
+          "group": "xiaoyu@1"
+        },
+        {
+          "command": "xiaoyu.refactorCode",
+          "when": "editorHasSelection",
+          "group": "xiaoyu@2"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0"
+  }
+}
