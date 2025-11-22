@@ -85,23 +85,15 @@ jobs:
         env:
           VSCODE_ARCH: x64
 
-      - name: Create dummy appx files
+      - name: Patch Inno Setup script to remove appx dependency
         shell: pwsh
         run: |
-          $buildDir = "$env:GITHUB_WORKSPACE\..\VSCode-win32-x64"
-          $appxDir = "$buildDir\appx"
-          New-Item -ItemType Directory -Force -Path $appxDir | Out-Null
-          $product = Get-Content -Raw -Path "product.json" | ConvertFrom-Json
-          $quality = if ($product.quality) { $product.quality } else { 'dev' }
-          $appxName = if ($quality -eq 'stable') { 'code' } elseif ($quality -eq 'insider') { 'code_insider' } else { 'code' }
-          $appxFile = "$appxDir\${appxName}_x64.appx"
-          $priFile = "$appxDir\resources.pri"
-          # Create empty files with actual content
-          [System.IO.File]::WriteAllBytes($appxFile, @())
-          [System.IO.File]::WriteAllBytes($priFile, @())
-          Write-Host "Created dummy appx files:"
-          Write-Host "  $appxFile (exists: $(Test-Path $appxFile))"
-          Write-Host "  $priFile (exists: $(Test-Path $priFile))"
+          $issFile = "build\win32\code.iss"
+          $content = Get-Content -Path $issFile -Raw
+          # Comment out the appx ifdef block in [Files] section
+          $content = $content -replace '(?ms)(#ifdef AppxPackageName.*?#endif\s*#endif)', '; Appx package disabled for CI build'
+          Set-Content -Path $issFile -Value $content
+          Write-Host "Patched code.iss to remove appx dependency"
 
       - name: Copy Inno updater tools
         run: npm run gulp vscode-win32-x64-inno-updater
