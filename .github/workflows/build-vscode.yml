@@ -85,6 +85,47 @@ jobs:
         env:
           VSCODE_ARCH: x64
 
+      - name: Install Chinese Language Pack and Xiaoyu AI
+        shell: pwsh
+        run: |
+          $buildDir = "$env:GITHUB_WORKSPACE\..\VSCode-win32-x64"
+          $extensionsDir = "$buildDir\resources\app\extensions"
+
+          Write-Host "=== Installing Chinese Language Pack ==="
+          $chinesePackUrl = "https://open-vsx.org/api/MS-CEINTL/vscode-language-pack-zh-hans/1.85.2024111309/file/MS-CEINTL.vscode-language-pack-zh-hans-1.85.2024111309.vsix"
+          $vsixFile = "$env:TEMP\chinese-pack.vsix"
+
+          try {
+            Invoke-WebRequest -Uri $chinesePackUrl -OutFile $vsixFile -UseBasicParsing
+            $targetDir = "$extensionsDir\ms-ceintl.vscode-language-pack-zh-hans"
+            New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
+            Expand-Archive -Path $vsixFile -DestinationPath $targetDir -Force
+            Write-Host "Chinese Language Pack installed"
+          } catch {
+            Write-Host "Warning: Failed to download Chinese pack"
+          }
+
+          Write-Host "=== Installing Xiaoyu AI Extension ==="
+          cd "$env:GITHUB_WORKSPACE\extensions\xiaoyu-ai"
+          npm install
+          npm run compile
+
+          $xiaoyuTargetDir = "$extensionsDir\xiaoyu-ai"
+          New-Item -ItemType Directory -Force -Path $xiaoyuTargetDir | Out-Null
+
+          Copy-Item -Path "package.json" -Destination $xiaoyuTargetDir -Force
+          Copy-Item -Path "out" -Destination $xiaoyuTargetDir -Recurse -Force
+          Copy-Item -Path "resources" -Destination $xiaoyuTargetDir -Recurse -Force
+          Copy-Item -Path "node_modules" -Destination $xiaoyuTargetDir -Recurse -Force
+
+          Write-Host "Xiaoyu AI Extension installed"
+
+          Write-Host "=== Setting Default Locale ==="
+          $userDir = "$buildDir\data\user-data\User"
+          New-Item -ItemType Directory -Force -Path $userDir | Out-Null
+          '{"locale":"zh-cn"}' | Out-File -FilePath "$userDir\locale.json" -Encoding UTF8
+          Write-Host "Default locale set to Chinese"
+
       - name: Create portable package
         shell: pwsh
         run: |
