@@ -85,6 +85,18 @@ jobs:
         env:
           VSCODE_ARCH: x64
 
+      - name: Create dummy appx files
+        shell: pwsh
+        run: |
+          $buildDir = "$env:GITHUB_WORKSPACE\..\VSCode-win32-x64"
+          $appxDir = "$buildDir\appx"
+          New-Item -ItemType Directory -Force -Path $appxDir
+          $product = Get-Content -Raw -Path "product.json" | ConvertFrom-Json
+          $quality = if ($product.quality) { $product.quality } else { 'dev' }
+          $appxName = if ($quality -eq 'stable') { 'code' } elseif ($quality -eq 'insider') { 'code_insider' } else { 'code' }
+          New-Item -ItemType File -Force -Path "$appxDir\${appxName}_x64.appx"
+          New-Item -ItemType File -Force -Path "$appxDir\resources.pri"
+
       - name: Copy Inno updater tools
         run: npm run gulp vscode-win32-x64-inno-updater
 
